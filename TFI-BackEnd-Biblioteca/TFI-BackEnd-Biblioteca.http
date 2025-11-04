@@ -1,0 +1,6 @@
+@TFI_BackEnd_Biblioteca_HostAddress = http://localhost:5241
+
+GET {{TFI_BackEnd_Biblioteca_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
