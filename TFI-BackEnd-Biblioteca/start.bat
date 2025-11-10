@@ -5,6 +5,7 @@ echo ========================================
 echo.
 echo Cerrando instancias previas...
 taskkill /F /IM TFI-BackEnd-Biblioteca.exe 2>nul
+timeout /t 2 /nobreak >nul
 
 echo.
 echo Compilando proyecto...
@@ -16,6 +17,8 @@ if %ERRORLEVEL% NEQ 0 (
     exit /b 1
 )
 
+echo.
+echo ? Compilación exitosa
 echo.
 echo Iniciando aplicacion en HTTPS...
 echo.

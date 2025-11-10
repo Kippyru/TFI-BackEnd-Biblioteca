@@ -1,19 +1,40 @@
 using Microsoft.EntityFrameworkCore;
+using Scalar.AspNetCore;
+using System.Text.Json.Serialization;
 using TFI_BackEnd_Biblioteca.Data;
+using TFI_BackEnd_Biblioteca.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        // Evitar referencias circulares
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+        // Ignorar propiedades null en la respuesta JSON
+        options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+    });
 
-// Configurar CORS
+// Configurar CORS desde appsettings
+var allowedOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>() ?? new[] { "*" };
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll", policy =>
+    options.AddPolicy("CorsPolicy", policy =>
     {
-      policy.AllowAnyOrigin()
-        .AllowAnyMethod()
+        if (allowedOrigins.Contains("*"))
+        {
+            policy.AllowAnyOrigin()
+           .AllowAnyMethod()
         .AllowAnyHeader();
+        }
+        else
+        {
+            policy.WithOrigins(allowedOrigins)
+   .AllowAnyMethod()
+  .AllowAnyHeader()
+        .AllowCredentials();
+        }
     });
 });
 
@@ -21,12 +42,15 @@ builder.Services.AddCors(options =>
 builder.Services.AddDbContext<BibliotecaContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+// Configurar OpenAPI/Swagger
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
 
-// Aplicar migraciones automáticamente en desarrollo (ANTES de app.Run)
+// Middleware de manejo global de excepciones (primero)
+app.UseGlobalExceptionHandler();
+
+// Aplicar migraciones automáticamente en desarrollo
 if (app.Environment.IsDevelopment())
 {
     using (var scope = app.Services.CreateScope())
@@ -39,10 +63,20 @@ if (app.Environment.IsDevelopment())
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    // Mapear OpenAPI
+ app.MapOpenApi();
+    
+    // Configurar Scalar para la documentación interactiva
+    app.MapScalarApiReference(options =>
+    {
+        options
+  .WithTitle("Biblioteca API")
+            .WithTheme(ScalarTheme.Purple)
+   .WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient);
+    });
 }
 
-app.UseCors("AllowAll");
+app.UseCors("CorsPolicy");
 
 app.UseHttpsRedirection();
 
