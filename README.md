@@ -21,9 +21,9 @@
 
 ---
 
-##  Estado del Proyecto
+## Estado del Proyecto
 
-###  Completado
+### Completado
 
 - [x] Configuración inicial del entorno
 - [x] Instalación de paquetes NuGet (EF Core, SQL Server, Tools)
@@ -36,7 +36,7 @@
   - [x] **Préstamos y devoluciones** - Crear, devolver, renovar, consultar activos/atrasados
 - [x] Conectar el backend con el **frontend** 
 
-###  Pendiente
+### Pendiente
 
 
 - [ ] Agregar autenticación y roles (Admin / Usuario)
@@ -45,7 +45,7 @@
 
 ---
 
-##  Estructura del Proyecto
+## Estructura del Proyecto
 
 ```
 TFI-BackEnd-Biblioteca/
@@ -67,7 +67,7 @@ TFI-BackEnd-Biblioteca/
 
 ---
 
-##  Instalación y Ejecución
+## Instalación y Ejecución
 
 ### Requisitos previos
 - **.NET 9 SDK**
@@ -116,9 +116,9 @@ TFI-BackEnd-Biblioteca/
 
 ---
 
-##  Endpoints Principales
+## Endpoints Principales
 
-###  Libros
+### Libros
 - `GET /api/libros` - Listar todos
 - `GET /api/libros/{id}` - Obtener por ID
 - `GET /api/libros/disponibles` - Libros con stock
@@ -127,7 +127,7 @@ TFI-BackEnd-Biblioteca/
 - `PUT /api/libros/{id}` - Actualizar
 - `DELETE /api/libros/{id}` - Eliminar
 
-###  Socios
+### Socios
 - `GET /api/socios` - Listar todos
 - `GET /api/socios/{id}` - Obtener por ID
 - `GET /api/socios/activos` - Socios activos
@@ -137,7 +137,7 @@ TFI-BackEnd-Biblioteca/
 - `PUT /api/socios/{id}/desactivar` - Desactivar
 - `DELETE /api/socios/{id}` - Eliminar
 
-###  Préstamos
+### Préstamos
 - `GET /api/prestamos` - Listar todos
 - `GET /api/prestamos/activos` - Préstamos activos
 - `GET /api/prestamos/atrasados` - Préstamos vencidos
@@ -150,7 +150,7 @@ TFI-BackEnd-Biblioteca/
 
 ---
 
-##  Reglas de Negocio
+## Reglas de Negocio
 
 ### Libros
 - ? Control automático de stock disponible
@@ -170,7 +170,7 @@ TFI-BackEnd-Biblioteca/
 
 ---
 
-##  Modelo de Datos
+## Modelo de Datos
 
 ### Libro
 ```csharp
@@ -212,7 +212,7 @@ TFI-BackEnd-Biblioteca/
 
 ---
 
-##  Comandos Útiles
+## Comandos Útiles
 
 ### Entity Framework
 
