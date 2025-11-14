@@ -1,75 +1,80 @@
-# ?? TFI-BackEnd-Biblioteca
+# TFI-BackEnd-Biblioteca
 
-**Sistema de Gestión de Biblioteca - Backend API**
+**Sistema de GestiÃ³n de Biblioteca - Backend API**
 
-## ??? Tecnologías
+## GRUPO TFI PROGRAMACION III
+
+**Aguirre Jesica** - **Brem Federico** - **Fornier Alex** - **Fornier Kevin**
+
+## TecnologÃ­as
 
 - **C# / .NET 9**
-- **Entity Framework Core** - ORM para gestión de base de datos
+- **Entity Framework Core** - ORM para gestiÃ³n de base de datos
 - **ASP.NET Core Web API** - Framework para API REST
 - **SQL Server** - Base de datos
-- **Scalar** - Documentación interactiva de API
+- **Scalar** - DocumentaciÃ³n interactiva de API
 
 ## ?? URLs del Proyecto
 
 - **API Base**: `https://localhost:7063/api`
-- **Documentación Scalar**: `https://localhost:7063/scalar/v1`
+- **DocumentaciÃ³n Scalar**: `https://localhost:7063/scalar/v1`
 
 ---
 
-## ? Estado del Proyecto
+##  Estado del Proyecto
 
-### ?? Completado
+###  Completado
 
-- [x] Configuración inicial del entorno
-- [x] Instalación de paquetes NuGet (EF Core, SQL Server, Tools)
-- [x] Creación de la **base de datos** usando **Entity Framework**
-- [x] Configuración del **DbContext** y las entidades (Libros, Socios, Préstamos)
-- [x] Implementación de operaciones **CRUD** (Create, Read, Update, Delete)
-- [x] Creación de controladores y endpoints para:
-  - [x] **Libros** - CRUD completo + búsqueda + disponibilidad
-  - [x] **Socios** - CRUD completo + búsqueda + activación/desactivación
-  - [x] **Préstamos y devoluciones** - Crear, devolver, renovar, consultar activos/atrasados
+- [x] ConfiguraciÃ³n inicial del entorno
+- [x] InstalaciÃ³n de paquetes NuGet (EF Core, SQL Server, Tools)
+- [x] CreaciÃ³n de la **base de datos** usando **Entity Framework**
+- [x] ConfiguraciÃ³n del **DbContext** y las entidades (Libros, Socios, PrÃ©stamos)
+- [x] ImplementaciÃ³n de operaciones **CRUD** (Create, Read, Update, Delete)
+- [x] CreaciÃ³n de controladores y endpoints para:
+  - [x] **Libros** - CRUD completo + bÃºsqueda + disponibilidad
+  - [x] **Socios** - CRUD completo + bÃºsqueda + activaciÃ³n/desactivaciÃ³n
+  - [x] **PrÃ©stamos y devoluciones** - Crear, devolver, renovar, consultar activos/atrasados
+- [x] Conectar el backend con el **frontend** 
 
-### ?? Pendiente
+###  Pendiente
 
-- [ ] Conectar el backend con el **frontend**
-- [ ] Agregar autenticación y roles (Admin / Usuario)
+
+- [ ] Agregar autenticaciÃ³n y roles (Admin / Usuario)
 - [ ] Implementar validaciones avanzadas y manejo de errores
-- [ ] Testing unitario e integración
+- [ ] Testing unitario e integraciÃ³n
 
 ---
 
-## ??? Estructura del Proyecto
+##  Estructura del Proyecto
 
 ```
 TFI-BackEnd-Biblioteca/
 ??? Controllers/
-?   ??? LibrosController.cs       # API de gestión de libros
-?   ??? SociosController.cs       # API de gestión de socios
-?   ??? PrestamosController.cs    # API de gestión de préstamos
+?   ??? LibrosController.cs       # API de gestiÃ³n de libros
+?   ??? SociosController.cs       # API de gestiÃ³n de socios
+?   ??? PrestamosController.cs    # API de gestiÃ³n de prÃ©stamos
 ??? Data/
 ?   ??? BibliotecaContext.cs      # DbContext de Entity Framework
 ??? Models/
 ?   ??? Libro.cs             # Entidad Libro
 ?   ??? Socio.cs            # Entidad Socio
-?   ??? Prestamo.cs           # Entidad Préstamo
+?   ??? Prestamo.cs           # Entidad PrÃ©stamo
 ??? Migrations/        # Migraciones de base de datos
-??? appsettings.json  # Configuración y cadena de conexión
-??? Program.cs   # Punto de entrada de la aplicación
-??? API_ENDPOINTS.md        # Documentación detallada de endpoints
+??? appsettings.json  # ConfiguraciÃ³n y cadena de conexiÃ³n
+??? Program.cs   # Punto de entrada de la aplicaciÃ³n
+??? API_ENDPOINTS.md        # DocumentaciÃ³n detallada de endpoints
 ```
 
 ---
 
-## ?? Instalación y Ejecución
+## ?? InstalaciÃ³n y EjecuciÃ³n
 
 ### Requisitos previos
 - **.NET 9 SDK**
 - **SQL Server** o **SQL Server LocalDB**
 - **Visual Studio 2022** o **VS Code**
 
-### Pasos de instalación
+### Pasos de instalaciÃ³n
 
 1. **Clonar el repositorio**
    ```bash
@@ -84,7 +89,7 @@ TFI-BackEnd-Biblioteca/
 
 3. **Configurar la base de datos**
    
-   Editar `appsettings.json` si necesitas cambiar la cadena de conexión:
+   Editar `appsettings.json` si necesitas cambiar la cadena de conexiÃ³n:
    ```json
    {
      "ConnectionStrings": {
@@ -98,14 +103,14 @@ TFI-BackEnd-Biblioteca/
    dotnet ef database update
    ```
 
-   Las migraciones se aplican automáticamente al ejecutar la aplicación en modo desarrollo.
+   Las migraciones se aplican automÃ¡ticamente al ejecutar la aplicaciÃ³n en modo desarrollo.
 
-5. **Ejecutar la aplicación**
+5. **Ejecutar la aplicaciÃ³n**
    ```bash
    dotnet run
    ```
 
-6. **Acceder a la documentación**
+6. **Acceder a la documentaciÃ³n**
    
    Abrir el navegador en: `https://localhost:7063/scalar/v1`
 
@@ -117,7 +122,7 @@ TFI-BackEnd-Biblioteca/
 - `GET /api/libros` - Listar todos
 - `GET /api/libros/{id}` - Obtener por ID
 - `GET /api/libros/disponibles` - Libros con stock
-- `GET /api/libros/buscar?termino=` - Búsqueda
+- `GET /api/libros/buscar?termino=` - BÃºsqueda
 - `POST /api/libros` - Crear
 - `PUT /api/libros/{id}` - Actualizar
 - `DELETE /api/libros/{id}` - Eliminar
@@ -126,41 +131,41 @@ TFI-BackEnd-Biblioteca/
 - `GET /api/socios` - Listar todos
 - `GET /api/socios/{id}` - Obtener por ID
 - `GET /api/socios/activos` - Socios activos
-- `GET /api/socios/{id}/prestamos` - Préstamos del socio
+- `GET /api/socios/{id}/prestamos` - PrÃ©stamos del socio
 - `POST /api/socios` - Crear
 - `PUT /api/socios/{id}` - Actualizar
 - `PUT /api/socios/{id}/desactivar` - Desactivar
 - `DELETE /api/socios/{id}` - Eliminar
 
-### ?? Préstamos
+### ?? PrÃ©stamos
 - `GET /api/prestamos` - Listar todos
-- `GET /api/prestamos/activos` - Préstamos activos
-- `GET /api/prestamos/atrasados` - Préstamos vencidos
-- `POST /api/prestamos` - Crear préstamo
+- `GET /api/prestamos/activos` - PrÃ©stamos activos
+- `GET /api/prestamos/atrasados` - PrÃ©stamos vencidos
+- `POST /api/prestamos` - Crear prÃ©stamo
 - `PUT /api/prestamos/{id}/devolver` - Devolver libro
-- `PUT /api/prestamos/{id}/renovar` - Renovar préstamo
+- `PUT /api/prestamos/{id}/renovar` - Renovar prÃ©stamo
 - `DELETE /api/prestamos/{id}` - Eliminar
 
-?? **Documentación completa**: Ver [API_ENDPOINTS.md](API_ENDPOINTS.md)
+?? **DocumentaciÃ³n completa**: Ver [API_ENDPOINTS.md](API_ENDPOINTS.md)
 
 ---
 
 ## ?? Reglas de Negocio
 
 ### Libros
-- ? Control automático de stock disponible
-- ? No se puede eliminar si tiene préstamos activos
+- ? Control automÃ¡tico de stock disponible
+- ? No se puede eliminar si tiene prÃ©stamos activos
 
 ### Socios
-- ? Email único por socio
-- ? Sistema de activación/desactivación
-- ? No se puede desactivar con préstamos activos
-- ? Socios desactivados no pueden pedir préstamos
+- ? Email Ãºnico por socio
+- ? Sistema de activaciÃ³n/desactivaciÃ³n
+- ? No se puede desactivar con prÃ©stamos activos
+- ? Socios desactivados no pueden pedir prÃ©stamos
 
-### Préstamos
-- ? Duración predeterminada: 15 días
-- ? Control de stock automático
-- ? No se permiten nuevos préstamos si hay préstamos atrasados
+### PrÃ©stamos
+- ? DuraciÃ³n predeterminada: 15 dÃ­as
+- ? Control de stock automÃ¡tico
+- ? No se permiten nuevos prÃ©stamos si hay prÃ©stamos atrasados
 - ? Socio debe estar activo
 
 ---
@@ -174,7 +179,7 @@ TFI-BackEnd-Biblioteca/
 - Autor (string, requerido)
 - ISBN (string, opcional)
 - Editorial (string, opcional)
-- AñoPublicacion (int?, opcional)
+- AÃ±oPublicacion (int?, opcional)
 - Genero (string, opcional)
 - CantidadDisponible (int)
 - CantidadTotal (int)
@@ -186,7 +191,7 @@ TFI-BackEnd-Biblioteca/
 - Id (int)
 - Nombre (string, requerido)
 - Apellido (string, requerido)
-- Email (string, requerido, único)
+- Email (string, requerido, Ãºnico)
 - Telefono (string, opcional)
 - Direccion (string, opcional)
 - FechaRegistro (DateTime)
@@ -207,28 +212,28 @@ TFI-BackEnd-Biblioteca/
 
 ---
 
-## ?? Comandos Útiles
+## ?? Comandos Ãštiles
 
 ### Entity Framework
 
 ```bash
-# Crear una nueva migración
+# Crear una nueva migraciÃ³n
 dotnet ef migrations add NombreDeLaMigracion
 
 # Aplicar migraciones pendientes
 dotnet ef database update
 
-# Revertir a una migración específica
+# Revertir a una migraciÃ³n especÃ­fica
 dotnet ef database update NombreDeLaMigracion
 
-# Eliminar la última migración (si no se aplicó)
+# Eliminar la Ãºltima migraciÃ³n (si no se aplicÃ³)
 dotnet ef migrations remove
 
 # Ver lista de migraciones
 dotnet ef migrations list
 ```
 
-### Compilación y Ejecución
+### CompilaciÃ³n y EjecuciÃ³n
 
 ```bash
 # Compilar el proyecto
@@ -237,35 +242,33 @@ dotnet build
 # Ejecutar el proyecto
 dotnet run
 
-# Ejecutar en modo watch (recarga automática)
+# Ejecutar en modo watch (recarga automÃ¡tica)
 dotnet watch run
 
-# Limpiar archivos de compilación
+# Limpiar archivos de compilaciÃ³n
 dotnet clean
 ```
 
 ---
 
-## ?? Contribución
+## Licencia
 
-Este es un proyecto académico (TFI - Trabajo Final Integrador).
-
----
-
-## ?? Licencia
-
-Este proyecto es de uso académico.
+Este proyecto es de uso acadÃ©mico.
 
 ---
 
-## ????? Autor
+## Autores
 
-**Kippyru**
+**Aguirre Jesica**
+- GitHub: [@JesicaAguirre](https://github.com/JesicaAguirre)
+
+**Brem Federico**
+- GitHub: [@meinwissenschaft](https://github.com/meinwissenschaft)
+
+**Fornier Alex**
+- GitHub: [@AlexFwawa](https://github.com/AlexFwawa)
+
+**Fornier Kevin**
 - GitHub: [@Kippyru](https://github.com/Kippyru)
-- Repositorio: [TFI-BackEnd-Biblioteca](https://github.com/Kippyru/TFI-BackEnd-Biblioteca)
 
----
 
-## ?? Soporte
-
-Para consultas o problemas, crear un **Issue** en el repositorio de GitHub.
