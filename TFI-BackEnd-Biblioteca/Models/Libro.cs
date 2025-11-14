@@ -1,25 +1,41 @@
-ï»¿using System;
-using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
-namespace TFI_BackEnd_Biblioteca.Models;
-
-public partial class Libro
+namespace TFI_BackEnd_Biblioteca.Models
 {
-    public string Isbn { get; set; } = null!;
+    public class Libro
+    {
+        public int Id { get; set; }
 
-    public string Titulo { get; set; } = null!;
+        [Required(ErrorMessage = "El título es requerido")]
+        [StringLength(200, ErrorMessage = "El título no puede exceder 200 caracteres")]
+        public string Titulo { get; set; } = string.Empty;
 
-    public string? Categoria { get; set; }
+        [Required(ErrorMessage = "El autor es requerido")]
+        [StringLength(150, ErrorMessage = "El autor no puede exceder 150 caracteres")]
+        public string Autor { get; set; } = string.Empty;
 
-    public string? Autores { get; set; }
+        [StringLength(13, ErrorMessage = "El ISBN no puede exceder 13 caracteres")]
+        [RegularExpression(@"^\d{10}(\d{3})?$", ErrorMessage = "El ISBN debe tener 10 o 13 dígitos")]
+        public string? ISBN { get; set; }
 
-    public int? Paginas { get; set; }
+        [StringLength(100, ErrorMessage = "La editorial no puede exceder 100 caracteres")]
+        public string? Editorial { get; set; }
 
-    public DateOnly? FechaPublicacion { get; set; }
+        [Range(1000, 2100, ErrorMessage = "El año de publicación debe estar entre 1000 y 2100")]
+        public int? AñoPublicacion { get; set; }
 
-    public int? IdEditorial { get; set; }
+        [StringLength(50, ErrorMessage = "El género no puede exceder 50 caracteres")]
+        public string? Genero { get; set; }
 
-    public virtual ICollection<EjemplarLibro> EjemplarLibros { get; set; } = new List<EjemplarLibro>();
+        [Range(0, int.MaxValue, ErrorMessage = "La cantidad disponible no puede ser negativa")]
+        public int CantidadDisponible { get; set; }
 
-    public virtual Editorial? IdEditorialNavigation { get; set; }
+        [Range(0, int.MaxValue, ErrorMessage = "La cantidad total no puede ser negativa")]
+        public int CantidadTotal { get; set; }
+
+        public DateTime FechaRegistro { get; set; } = DateTime.Now;
+
+        // Navegación
+        public ICollection<Prestamo> Prestamos { get; set; } = new List<Prestamo>();
+    }
 }

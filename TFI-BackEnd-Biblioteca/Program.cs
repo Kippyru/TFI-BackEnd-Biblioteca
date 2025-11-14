@@ -1,56 +1,87 @@
 using Microsoft.EntityFrameworkCore;
+using Scalar.AspNetCore;
+using System.Text.Json.Serialization;
 using TFI_BackEnd_Biblioteca.Data;
+using TFI_BackEnd_Biblioteca.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//Este codigo le "enseña"la aplicación cómo usar BibliotecaContext y de dónde sacar la cadena de conexión.
-// 1. Obtener la cadena de conexión que escribiste en appsettings.json
+// Add services to the container.
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        // Evitar referencias circulares
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+        // Ignorar propiedades null en la respuesta JSON
+        options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+    });
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-
-// 2. Registrar el DbContext (BibliotecaContext) en el sistema.
-//    Esto se llama "Inyección de Dependencias".
-
-builder.Services.AddDbContext<BibliotecaContext>(options =>
-    options.UseSqlServer(connectionString));
-// --- FIN DE LA CONFIGURACIÓN DE EF ---
-
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Services.AddOpenApi();
-
-
-// Configuración de CORS
+// Configurar CORS desde appsettings
+var allowedOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>() ?? new[] { "*" };
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAngularApp",
-        builder =>
+    options.AddPolicy("CorsPolicy", policy =>
+    {
+        if (allowedOrigins.Contains("*"))
         {
-            builder.WithOrigins("http://localhost:4200") // ¡La URL de tu app Angular!
-                   .AllowAnyHeader()
-                   .AllowAnyMethod();
-        });
+            policy.AllowAnyOrigin()
+           .AllowAnyMethod()
+        .AllowAnyHeader();
+        }
+        else
+        {
+            policy.WithOrigins(allowedOrigins)
+   .AllowAnyMethod()
+  .AllowAnyHeader()
+        .AllowCredentials();
+        }
+    });
 });
 
+// Configurar Entity Framework y SQL Server
+builder.Services.AddDbContext<BibliotecaContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Configurar OpenAPI/Swagger
+builder.Services.AddOpenApi();
+
 var app = builder.Build();
+
+// Middleware de manejo global de excepciones (primero)
+app.UseGlobalExceptionHandler();
+
+// Aplicar migraciones automáticamente en desarrollo
+if (app.Environment.IsDevelopment())
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        var dbContext = scope.ServiceProvider.GetRequiredService<BibliotecaContext>();
+        dbContext.Database.Migrate();
+    }
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    // Mapear OpenAPI
+ app.MapOpenApi();
+    
+    // Configurar Scalar para la documentación interactiva
+    app.MapScalarApiReference(options =>
+    {
+        options
+  .WithTitle("Biblioteca API")
+            .WithTheme(ScalarTheme.Purple)
+   .WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient);
+    });
 }
+
+app.UseCors("CorsPolicy");
 
 app.UseHttpsRedirection();
 
-// Aquí le decimos a la app que use la política que definimos
-app.UseCors("AllowAngularApp");
-
-// La línea de CORS debe ir ANTES de UseAuthorization
 app.UseAuthorization();
 
 app.MapControllers();
 
 app.Run();
-
