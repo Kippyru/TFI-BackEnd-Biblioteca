@@ -1,18 +1,18 @@
-# ?? API de Biblioteca - DocumentaciÛn de Endpoints
+#  API de Biblioteca - Documentaci√≥n de Endpoints
 
-## ?? Base URL
+##  Base URL
 ```
 https://localhost:7063/api
 ```
 
-## ?? DocumentaciÛn Interactiva
+##  Documentaci√≥n Interactiva
 ```
 https://localhost:7063/scalar/v1
 ```
 
 ---
 
-## ?? LIBROS
+##  LIBROS
 
 ### Obtener todos los libros
 ```http
@@ -33,7 +33,7 @@ GET /api/libros/disponibles
 ```http
 GET /api/libros/buscar?termino=garcia
 ```
-Busca por tÌtulo, autor o ISBN.
+Busca por t√≠tulo, autor o ISBN.
 
 ### Crear nuevo libro
 ```http
@@ -41,12 +41,12 @@ POST /api/libros
 Content-Type: application/json
 
 {
-  "titulo": "Cien aÒos de soledad",
-  "autor": "Gabriel GarcÌa M·rquez",
+  "titulo": "Cien a√±os de soledad",
+  "autor": "Gabriel Garc√≠a M√°rquez",
   "isbn": "9780307474728",
   "editorial": "Editorial Sudamericana",
-  "aÒoPublicacion": 1967,
-  "genero": "Realismo m·gico",
+  "a√±oPublicacion": 1967,
+  "genero": "Realismo m√°gico",
   "cantidadDisponible": 5,
   "cantidadTotal": 5
 }
@@ -59,12 +59,12 @@ Content-Type: application/json
 
 {
   "id": 1,
-  "titulo": "Cien aÒos de soledad",
-  "autor": "Gabriel GarcÌa M·rquez",
+  "titulo": "Cien a√±os de soledad",
+  "autor": "Gabriel Garc√≠a M√°rquez",
   "isbn": "9780307474728",
   "editorial": "Editorial Sudamericana",
-  "aÒoPublicacion": 1967,
-  "genero": "Realismo m·gico",
+  "a√±oPublicacion": 1967,
+  "genero": "Realismo m√°gico",
   "cantidadDisponible": 3,
   "cantidadTotal": 5,
   "fechaRegistro": "2024-01-01T00:00:00"
@@ -75,11 +75,11 @@ Content-Type: application/json
 ```http
 DELETE /api/libros/{id}
 ```
-?? No se puede eliminar si tiene prÈstamos activos.
+?? No se puede eliminar si tiene pr√©stamos activos.
 
 ---
 
-## ?? SOCIOS
+##  SOCIOS
 
 ### Obtener todos los socios
 ```http
@@ -90,7 +90,7 @@ GET /api/socios
 ```http
 GET /api/socios/{id}
 ```
-Incluye los prÈstamos del socio.
+Incluye los pr√©stamos del socio.
 
 ### Obtener socios activos
 ```http
@@ -103,12 +103,12 @@ GET /api/socios/buscar?termino=perez
 ```
 Busca por nombre, apellido o email.
 
-### Obtener prÈstamos de un socio
+### Obtener pr√©stamos de un socio
 ```http
 GET /api/socios/{id}/prestamos
 ```
 
-### Obtener prÈstamos activos de un socio
+### Obtener pr√©stamos activos de un socio
 ```http
 GET /api/socios/{id}/prestamos/activos
 ```
@@ -120,7 +120,7 @@ Content-Type: application/json
 
 {
   "nombre": "Juan",
-  "apellido": "PÈrez",
+  "apellido": "P√©rez",
   "email": "juan.perez@example.com",
   "telefono": "+54 11 1234-5678",
   "direccion": "Av. Corrientes 1234, CABA"
@@ -135,7 +135,7 @@ Content-Type: application/json
 {
   "id": 1,
   "nombre": "Juan",
-  "apellido": "PÈrez",
+  "apellido": "P√©rez",
   "email": "juan.perez@example.com",
   "telefono": "+54 11 1234-5678",
   "direccion": "Av. Corrientes 1234, CABA",
@@ -148,7 +148,7 @@ Content-Type: application/json
 ```http
 PUT /api/socios/{id}/desactivar
 ```
-?? No se puede desactivar si tiene prÈstamos activos.
+?? No se puede desactivar si tiene pr√©stamos activos.
 
 ### Activar socio
 ```http
@@ -159,35 +159,35 @@ PUT /api/socios/{id}/activar
 ```http
 DELETE /api/socios/{id}
 ```
-?? No se puede eliminar si tiene prÈstamos registrados.
+?? No se puede eliminar si tiene pr√©stamos registrados.
 
 ---
 
-## ?? PR…STAMOS
+##  PR√âSTAMOS
 
-### Obtener todos los prÈstamos
+### Obtener todos los pr√©stamos
 ```http
 GET /api/prestamos
 ```
-Incluye informaciÛn del libro y socio.
+Incluye informaci√≥n del libro y socio.
 
-### Obtener prÈstamo por ID
+### Obtener pr√©stamo por ID
 ```http
 GET /api/prestamos/{id}
 ```
 
-### Obtener prÈstamos activos
+### Obtener pr√©stamos activos
 ```http
 GET /api/prestamos/activos
 ```
 
-### Obtener prÈstamos atrasados
+### Obtener pr√©stamos atrasados
 ```http
 GET /api/prestamos/atrasados
 ```
-PrÈstamos activos cuya fecha de devoluciÛn estimada ya pasÛ.
+Pr√©stamos activos cuya fecha de devoluci√≥n estimada ya pas√≥.
 
-### Crear nuevo prÈstamo
+### Crear nuevo pr√©stamo
 ```http
 POST /api/prestamos
 Content-Type: application/json
@@ -198,14 +198,14 @@ Content-Type: application/json
   "fechaDevolucionEstimada": "2024-12-31T00:00:00"
 }
 ```
-Si no se especifica `fechaDevolucionEstimada`, se establece autom·ticamente en 15 dÌas.
+Si no se especifica `fechaDevolucionEstimada`, se establece autom√°ticamente en 15 d√≠as.
 
 **Validaciones:**
 - El libro debe existir y tener ejemplares disponibles
 - El socio debe existir y estar activo
-- El socio no debe tener prÈstamos atrasados
+- El socio no debe tener pr√©stamos atrasados
 
-### Devolver prÈstamo
+### Devolver pr√©stamo
 ```http
 PUT /api/prestamos/{id}/devolver
 Content-Type: application/json
@@ -213,13 +213,13 @@ Content-Type: application/json
 "Observaciones opcionales: libro en buen estado"
 ```
 
-### Renovar prÈstamo
+### Renovar pr√©stamo
 ```http
 PUT /api/prestamos/{id}/renovar?dias=15
 ```
-Extiende la fecha de devoluciÛn estimada.
+Extiende la fecha de devoluci√≥n estimada.
 
-### Actualizar prÈstamo
+### Actualizar pr√©stamo
 ```http
 PUT /api/prestamos/{id}
 Content-Type: application/json
@@ -236,46 +236,46 @@ Content-Type: application/json
 }
 ```
 
-### Eliminar prÈstamo
+### Eliminar pr√©stamo
 ```http
 DELETE /api/prestamos/{id}
 ```
-Si el prÈstamo est· activo, restaura la cantidad disponible del libro.
+Si el pr√©stamo est√° activo, restaura la cantidad disponible del libro.
 
 ---
 
-## ?? Estados de PrÈstamos
+##  Estados de Pr√©stamos
 
-- **Activo**: PrÈstamo en curso
-- **Devuelto**: PrÈstamo completado
+- **Activo**: Pr√©stamo en curso
+- **Devuelto**: Pr√©stamo completado
 - **Atrasado**: Se determina cuando `FechaDevolucionEstimada < DateTime.Now` y `Estado == "Activo"`
 
 ---
 
-## ?? CÛdigos de Respuesta HTTP
+##  C√≥digos de Respuesta HTTP
 
-- `200 OK`: OperaciÛn exitosa
+- `200 OK`: Operaci√≥n exitosa
 - `201 Created`: Recurso creado exitosamente
-- `204 No Content`: OperaciÛn exitosa sin contenido de respuesta
-- `400 Bad Request`: Datos inv·lidos o reglas de negocio no cumplidas
+- `204 No Content`: Operaci√≥n exitosa sin contenido de respuesta
+- `400 Bad Request`: Datos inv√°lidos o reglas de negocio no cumplidas
 - `404 Not Found`: Recurso no encontrado
 
 ---
 
-## ?? Reglas de Negocio
+##  Reglas de Negocio
 
 ### Libros
-- No se puede eliminar un libro con prÈstamos activos
-- La cantidad disponible se actualiza autom·ticamente al crear/devolver prÈstamos
+- No se puede eliminar un libro con pr√©stamos activos
+- La cantidad disponible se actualiza autom√°ticamente al crear/devolver pr√©stamos
 
 ### Socios
-- El email debe ser ˙nico
-- No se puede desactivar un socio con prÈstamos activos
-- No se puede eliminar un socio con prÈstamos registrados
-- Un socio desactivado no puede realizar prÈstamos
+- El email debe ser √∫nico
+- No se puede desactivar un socio con pr√©stamos activos
+- No se puede eliminar un socio con pr√©stamos registrados
+- Un socio desactivado no puede realizar pr√©stamos
 
-### PrÈstamos
-- Un socio con prÈstamos atrasados no puede realizar nuevos prÈstamos
-- Al crear un prÈstamo, se reduce la cantidad disponible del libro
-- Al devolver un prÈstamo, se incrementa la cantidad disponible del libro
-- Solo se pueden renovar prÈstamos activos
+### Pr√©stamos
+- Un socio con pr√©stamos atrasados no puede realizar nuevos pr√©stamos
+- Al crear un pr√©stamo, se reduce la cantidad disponible del libro
+- Al devolver un pr√©stamo, se incrementa la cantidad disponible del libro
+- Solo se pueden renovar pr√©stamos activos
